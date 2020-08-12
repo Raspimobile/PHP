@@ -59,8 +59,8 @@ foreach ($datas as $data) {
 print_r($datas);
 ?>
 <?php
-if (isset($_GET['tension']))  // test si la variable existe 
-{  
+
+  
 // Reception depuis python bat_V1.py
 
 $Sol1 = $_GET['Sol1'] ;
@@ -79,17 +79,19 @@ echo($URL);
 
 
 $Envoi_bdd = file_get_contents($URL);
+$sql2 = "INSERT INTO Conso ( time, U_bat , U_panns , U_pann1, U_pann2, I_bat, I_sort, P_panns, Etat_charge , Rend_total , P_max_jour, Rend_jour , P_max_hier ) VALUES('$time', '$U_bat', '$U_panns', '$U_pann1', '$U_pann2', '$I_bat', '$I_sort', '$P_panns', '$Etat_charge', '$P_max_hier', '$Rend_jour', '$Rend_total', '$P_max_jour' )";
+$bdd->query($sql);
 // echo (json.encode($URL));
-
+if (isset($_GET['tension']))  // test si la variable existe 
+{
  if ($U_bat != 0) 
  {
  $sql = "INSERT INTO Batterie ( tension, Sol1, Sol2, time) VALUES( '$tension' , '$Sol1' , '$Sol2' , '$time')";
- $sql2 = "INSERT INTO Conso ( time, U_bat , U_panns , U_pann1, U_pann2, I_bat, I_sort, P_panns, Etat_charge , Rend_total , P_max_jour, Rend_jour , P_max_hier ) VALUES('$time', '$U_bat', '$U_panns', '$U_pann1', '$U_pann2', '$I_bat', '$I_sort', '$P_panns', '$Etat_charge', '$P_max_hier', '$Rend_jour', '$Rend_total', '$P_max_jour' )";
- $bdd->query($sql) ;
- $bdd->query($sql2) ;
+ 
+ $bdd->query($sql);
  $bdd->fetch(); 
  $sql3 = "DELETE FROM Batterie WHERE tension > 30 ";
- $bdd->query($sql3) ;   
+ $bdd->query($sql3);   
  } 
 }
 
