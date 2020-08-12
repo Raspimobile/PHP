@@ -63,12 +63,7 @@ print_r($datas);
   
 // Reception depuis python bat_V1.py
 
-$Sol1 = $_GET['Sol1'] ;
-$time = $_GET['time'] ; 
-$U_pann1 = $Sol1;
-$tension = $U_bat ; // Utilisation des la tension batterie du Victron
-$Sol2 = ($U_panns-$U_pann1) ;
-$U_pann2 = ($U_panns-$U_pann1) ;
+
 
 
 // Préparation envoi 
@@ -79,11 +74,22 @@ echo($URL);
 
 
 $Envoi_bdd = file_get_contents($URL);
-$sql2 = "INSERT INTO Conso ( time, U_bat , U_panns , U_pann1, U_pann2, I_bat, I_sort, P_panns, Etat_charge , Rend_total , P_max_jour, Rend_jour , P_max_hier ) VALUES('$time', '$U_bat', '$U_panns', '$U_pann1', '$U_pann2', '$I_bat', '$I_sort', '$P_panns', '$Etat_charge', '$P_max_hier', '$Rend_jour', '$Rend_total', '$P_max_jour' )";
-$bdd->query($sql);
+
+
 // echo (json.encode($URL));
 if (isset($_GET['tension']))  // test si la variable existe 
 {
+  $Sol1 = $_GET['Sol1'] ;
+$time = $_GET['time'] ; 
+$U_pann1 = $Sol1;
+$tension = $U_bat ; // Utilisation des la tension batterie du Victron
+$Sol2 = ($U_panns-$U_pann1) ;
+$U_pann2 = ($U_panns-$U_pann1) ;
+
+
+$sql2 = "INSERT INTO Conso ( time, U_bat , U_panns , U_pann1, U_pann2, I_bat, I_sort, P_panns, Etat_charge , Rend_total , P_max_jour, Rend_jour , P_max_hier ) VALUES('$time', '$U_bat', '$U_panns', '$U_pann1', '$U_pann2', '$I_bat', '$I_sort', '$P_panns', '$Etat_charge', '$P_max_hier', '$Rend_jour', '$Rend_total', '$P_max_jour' )";
+$bdd->query($sql);
+
  if ($U_bat != 0) 
  {
  $sql = "INSERT INTO Batterie ( tension, Sol1, Sol2, time) VALUES( '$tension' , '$Sol1' , '$Sol2' , '$time')";
