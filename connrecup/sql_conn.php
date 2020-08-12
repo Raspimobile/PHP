@@ -1,5 +1,5 @@
 ﻿<?php
-require_once('config.php');
+require_once('/var/www/html/config.php');
 
 try
 { // connection à la base de données
