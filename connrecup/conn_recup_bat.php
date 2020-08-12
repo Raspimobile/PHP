@@ -56,6 +56,7 @@ foreach ($datas as $data) {
       break;
   }
 }
+print_r($datas);
 ?>
 <?php
 if (isset($_GET['tension']))  // test si la variable existe 
